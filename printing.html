@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Printing Services | Gowise Print Norwich</title>
+    <meta name="description" content="Discover our Lithographic and Digital printing services. From business cards to books, see what Gowise Print can do for you.">
+    <link rel="canonical" href="https://www.gowise.co.uk/printing.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Reset & Universal Font Enforcement */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: "Open Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; 
+            font-weight: 300; 
+        }
+        
+        body { 
+            color: #333; 
+            overflow-x: hidden; 
+            background-color: #fcfcfc;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Color Variables */
+        :root {
+            --gowise-magenta: #ff00ff;
+            --gowise-pink: #fd13f0;
+            --gowise-cyan: #009ee0; 
+            --header-dark: #333333;
+        }
+
+        /* Top Bar */
+        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; }
+
+        /* Main Header & Nav */
+        header { background-color: var(--header-dark); color: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .logo img { max-height: 80px; width: auto; }
+        
+        /* Navigation Menu */
+        .main-nav { display: flex; gap: 20px; font-size: 13px; }
+        .main-nav li { position: relative; padding: 10px 0; }
+        .main-nav a { padding: 5px 10px; transition: color 0.3s; text-transform: uppercase; }
+        
+        /* The Active Page is now Cyan */
+        .main-nav a.active, .main-nav a:hover { color: var(--gowise-cyan); }
+
+        /* Dropdown Menus */
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: var(--gowise-cyan); min-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 99; }
+        .main-nav li:hover .dropdown { display: block; }
+        .dropdown li { padding: 0; }
+        .dropdown a { display: block; padding: 12px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); font-size: 12px; text-transform: none; color: #ffffff; }
+        .dropdown a:hover { background-color: rgba(0, 0, 0, 0.15); color: #fff; }
+
+        /* Hero Image Carousel */
+        .hero-carousel { 
+            position: relative; 
+            width: 100%; 
+            height: calc(100vh - 185px - 340px); 
+            min-height: 300px; 
+            overflow: hidden; 
+            background: #000; 
+        }
+        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; z-index: 1; }
+        .hero-slide.active { opacity: 1; z-index: 2; }
+        .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .carousel-controls { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; transform: translateY(-50%); z-index: 10; pointer-events: none; }
+        .carousel-btn { background: rgba(0,0,0,0.5); color: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; pointer-events: auto; font-size: 20px; transition: background 0.3s; display: flex; justify-content: center; align-items: center;}
+        .carousel-btn:hover { background: var(--gowise-magenta); }
+
+        /* Intro Text Section */
+        .intro-section { 
+            height: auto;
+            min-height: 340px; 
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff; 
+            width: 100%;
+        }
+        
+        .intro-title-wrapper {
+            background-color: var(--gowise-magenta); 
+            width: 100%;
+        }
+
+        .intro-title { 
+            font-size: 38px; 
+            color: #ffffff; 
+            padding: 20px 5%;
+            margin: 0 auto;
+            text-align: left; 
+            width: 100%;
+            max-width: 1500px; 
+        }
+        
+        .intro-text-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 5%;
+            width: 100%;
+            max-width: 1500px; 
+            margin: 0 auto;
+        }
+        
+        .intro-text { 
+            width: 100%;
+            font-size: 22px; 
+            line-height: 1.8; 
+            color: #555; 
+            text-align: left; 
+        }
+
+        /* Round Rolling Buttons Section */
+        .rolling-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 60px 5%;
+            background-color: #f4f4f4;
+            overflow: hidden; /* Prevents horizontal scrollbar during animation */
+        }
+
+        .round-btn {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            font-size: 22px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            /* Initial Hidden State */
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease;
+        }
+        
+        .round-btn span {
+            pointer-events: none; /* Keeps text from interfering with hover */
+        }
+
+        /* Specific Button Colors & Starting Positions */
+        .left-btn {
+            background-color: var(--gowise-cyan);
+            transform: translateX(-50vw) rotate(-360deg);
+        }
+
+        .right-btn {
+            background-color: var(--gowise-magenta);
+            transform: translateX(50vw) rotate(360deg);
+        }
+
+        /* Triggered End State */
+        .round-btn.roll-in {
+            opacity: 1;
+            transform: translateX(0) rotate(0deg);
+        }
+
+        .round-btn:hover {
+            transform: scale(1.05); /* Slight pop on mouse hover once settled */
+        }
+
+        /* Info Blocks Section (What we do / don't do) */
+        .info-blocks-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        .info-block {
+            flex: 1;
+            background: #ffffff;
+            padding: 40px;
+            border-top: 4px solid var(--gowise-cyan);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .info-block.dont-do {
+            border-top: 4px solid var(--gowise-magenta);
+        }
+
+        .info-block h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .info-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Footer & Animated Map */
+        footer { background: var(--header-dark); color: #fff; position: relative; overflow: hidden; padding: 60px 5%; }
+        
+        .footer-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-arrow-container { flex: 0 0 120px; }
+        
+        .footer-arrow { 
+            width: 100%; 
+            height: auto; 
+            transform: translateX(-150px); 
+            opacity: 0; 
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease; 
+        }
+        .footer-arrow.slide-in { transform: translateX(0); opacity: 1; }
+        
+        .footer-text-columns {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            gap: 60px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .map-container { 
+            flex: 0 0 350px; 
+            height: 250px; 
+            background: #ddd; 
+            border-radius: 4px; 
+            overflow: hidden; 
+        }
+        
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* Responsive Media Queries */
+        @media (max-width: 1024px) {
+            header { flex-direction: column; gap: 15px; padding: 20px 5%; }
+            .main-nav { flex-wrap: wrap; justify-content: center; }
+            .dropdown { position: static; box-shadow: none; display: none; }
+            .main-nav li:hover .dropdown { display: none; }
+            
+            .rolling-buttons-container { gap: 30px; flex-direction: column; align-items: center; }
+            .info-blocks-container { flex-direction: column; }
+            
+            .footer-grid { flex-wrap: wrap; justify-content: center; text-align: center; }
+            .footer-arrow-container { display: none; }
+            .footer-text-columns { flex-direction: column; gap: 30px; align-items: center; }
+            .map-container { width: 100%; flex: 1 1 100%; }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; text-align: center; gap: 10px; }
+            .hero-carousel { height: 40vh; }
+            .intro-title { font-size: 26px; padding: 15px 5%; }
+            .round-btn { width: 220px; height: 220px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <span>Tel: +44 (0)1603 431304</span>
+        <span>print@gowise.co.uk</span>
+    </div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="gowise-logo.png" alt="Gowise Print Logo">
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="index.html">HOME</a></li>
+                
+                <li>
+                    <a href="printing.html" class="active">PRINTING SERVICES ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">How we do it</a></li>
+                        <li><a href="#">What We Do</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">PRINT FINISHING ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">How we do it</a></li>
+                        <li><a href="#">What We Do</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">GRAPHIC DESIGN ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">How we do it</a></li>
+                        <li><a href="#">What We Do</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">EQUIPMENT ▾</a>
+                    <ul class="dropdown">
+                        <li><a href="#">How we do it</a></li>
+                        <li><a href="#">What We Do</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">NEWS</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li><a href="#">NEW 5 COLOUR DIGITAL</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-carousel" aria-label="Hero Carousel">
+            <div class="hero-slide active"><img src="carousel-1.JPG" alt="Gowise Print Facility 1"></div>
+            <div class="hero-slide"><img src="carousel-2.JPG" alt="Gowise Print Facility 2"></div>
+            <div class="hero-slide"><img src="carousel-3.JPG" alt="Gowise Print Facility 3"></div>
+            <div class="hero-slide"><img src="carousel-4.JPG" alt="Gowise Print Facility 4"></div>
+            <div class="hero-slide"><img src="carousel-5.JPG" alt="Gowise Print Facility 5"></div>
+            
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="heroPrev" aria-label="Previous Slide">❮</button>
+                <button class="carousel-btn" id="heroNext" aria-label="Next Slide">❯</button>
+            </div>
+        </section>
+
+        <section class="intro-section" aria-label="About Printing Services">
+            <div class="intro-title-wrapper">
+                <h2 class="intro-title">Printing Services</h2>
+            </div>
+            <div class="intro-text-container">
+                <p class="intro-text">
+                    In 1983, we bought our first lithographic printing press which is still in frequent use today. Since then we have also embraced the rapid, recent advancements in dry toner ("digital") printing and offer both options. Printing on both litho presses and digital presses, we can ensure the right method is used for your print. Generally, digital is chosen for lower quantities and litho print for higher quantities, but things are not always that simple and we are here to help you.
+                </p>
+            </div>
+        </section>
+
+        <section class="rolling-buttons-container">
+            <div class="round-btn left-btn">
+                <span>LITHO PRINTING<br>EXPLAINED</span>
+            </div>
+            <div class="round-btn right-btn">
+                <span>DIGITAL PRINTING<br>EXPLAINED</span>
+            </div>
+        </section>
+
+        <section class="info-blocks-container">
+            <div class="info-block">
+                <h3>What we do...</h3>
+                <p>Basically, if your product is on paper or card, we would claim that we can do it.</p>
+            </div>
+            
+            <div class="info-block dont-do">
+                <h3>What we don't do...</h3>
+                <p>... but please don't be afraid to ask as we will probably know someone who can.</p>
+                <p>Wide format printing (posters, signs etc), promotional items (mugs, pens, t-shirts and the like), exhibition items (stands and banners).</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            
+            <div class="footer-arrow-container">
+                <svg class="footer-arrow" id="slideArrow" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,15 L60,15 L60,0 L100,25 L60,50 L60,35 L0,35 Z" fill="var(--gowise-magenta)"/>
+                </svg>
+            </div>
+            
+            <div class="footer-text-columns">
+                <div>
+                    <p style="font-size: 18px; margin-bottom: 15px; color: var(--gowise-magenta);">WHERE TO FIND US</p>
+                    <p>4 Belmore Road<br>Thorpe St Andrew<br>Norwich<br>Norfolk<br>NR7 0PT</p>
+                    <br>
+                    <p>+44 (0)1603 431304</p>
+                    <p>print@gowise.co.uk</p>
+                </div>
+                
+                <div>
+                    <p style="font-size: 16px; margin-bottom: 15px;">OPENING HOURS</p>
+                    <p>MONDAY: 08.30-17.00<br>TUESDAY: 08.30-17.00<br>WEDNESDAY: 08.30-17.00<br>THURSDAY: 08.30-17.00<br>FRIDAY: 08.30-17.00<br>SATURDAY: CLOSED<br>SUNDAY: CLOSED</p>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=NR7%200PT&t=&z=14&ie=UTF8&iwloc=&output=embed" loading="lazy" allowfullscreen></iframe>
+            </div>
+            
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Hero Carousel Logic ---
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        let currentHero = 0;
+        let heroInterval;
+
+        function showHeroSlide(index) {
+            heroSlides[currentHero].classList.remove('active');
+            currentHero = (index + heroSlides.length) % heroSlides.length;
+            heroSlides[currentHero].classList.add('active');
+        }
+
+        function nextHero() { showHeroSlide(currentHero + 1); resetHeroTimer(); }
+        function prevHero() { showHeroSlide(currentHero - 1); resetHeroTimer(); }
+
+        function resetHeroTimer() {
+            clearInterval(heroInterval);
+            heroInterval = setInterval(() => showHeroSlide(currentHero + 1), 5000); 
+        }
+
+        document.getElementById('heroNext').addEventListener('click', nextHero);
+        document.getElementById('heroPrev').addEventListener('click', prevHero);
+        resetHeroTimer(); 
+
+        // --- 2. Scroll Animations (Intersection Observers) ---
+        
+        // Footer Arrow Animation
+        const arrow = document.getElementById('slideArrow');
+        const arrowObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    arrow.classList.add('slide-in');
+                } else {
+                    arrow.classList.remove('slide-in');
+                }
+            });
+        }, { threshold: 0.1 }); 
+        arrowObserver.observe(arrow);
+
+        // Rolling Buttons Animation - FIXED
+        // We now observe the CONTAINER instead of the buttons themselves.
+        const rollingContainer = document.querySelector('.rolling-buttons-container');
+        const rollingBtns = document.querySelectorAll('.round-btn');
+        
+        const btnObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Trigger roll-in when container comes into view
+                    rollingBtns.forEach(btn => btn.classList.add('roll-in'));
+                } else {
+                    // Reverse the roll when scrolled away
+                    rollingBtns.forEach(btn => btn.classList.remove('roll-in'));
+                }
+            });
+        }, { threshold: 0.2 }); // Triggers when 20% of the container is visible
+        
+        btnObserver.observe(rollingContainer);
+    </script>
+</body>
+</html>
