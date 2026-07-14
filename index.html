@@ -23,7 +23,7 @@
             box-sizing: border-box; 
             margin: 0; 
             padding: 0; 
-            /* This guarantees every element uses this exact font stack AND the light weight */
+            /* Guarantees every element uses this exact font stack AND the light weight */
             font-family: "Open Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; 
             font-weight: 300; 
         }
@@ -36,7 +36,7 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* PDF Color Variables */
+        /* Color Variables */
         :root {
             --gowise-magenta: #ff00ff;
             --gowise-pink: #fd13f0;
@@ -46,14 +46,14 @@
         }
 
         /* Top Bar */
-        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; }
+        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; font-weight: 400; }
 
         /* Main Header & Nav */
         header { background-color: var(--header-dark); color: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo img { max-height: 80px; width: auto; }
         
         /* Navigation Menu */
-        .main-nav { display: flex; gap: 20px; font-size: 13px; }
+        .main-nav { display: flex; gap: 20px; font-size: 13px; font-weight: 300; }
         .main-nav li { position: relative; padding: 10px 0; }
         .main-nav a { padding: 5px 10px; transition: color 0.3s; text-transform: uppercase; }
         .main-nav a.active, .main-nav a:hover { color: var(--gowise-cyan); }
@@ -91,7 +91,6 @@
             width: 100%;
         }
         
-        /* Full-width background wrapper for the title */
         .intro-title-wrapper {
             background-color: var(--gowise-magenta); 
             width: 100%;
@@ -104,26 +103,26 @@
             margin: 0 auto;
             text-align: left; 
             width: 100%;
-            max-width: 1500px; /* Constrains title to match the grid width below */
+            max-width: 1500px; 
         }
         
         .intro-text-container {
             flex: 1;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-end; /* Pushes content to the right edge */
             padding: 0 5%;
             width: 100%;
-            max-width: 1500px; /* Constrains text box to match the grid width below */
+            max-width: 1500px; 
             margin: 0 auto;
         }
         
         .intro-text { 
             width: 100%;
-            font-size: 22px; 
+            font-size: 18px; /* Reduced from 22px */
             line-height: 1.8; 
             color: #555; 
-            text-align: left; 
+            text-align: right; /* Aligns text with the right side of the box grid */
         }
         
         /* Desktop Line Breaks */
@@ -146,7 +145,7 @@
             aspect-ratio: 1/1; 
             overflow: hidden; 
             cursor: pointer; 
-            background: #f4f4f4; 
+            background-color: var(--gowise-magenta); /* Solid Magenta */
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -155,7 +154,13 @@
             
             opacity: 0;
             transform: translateY(60px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            /* Added background-color to the transition list for smooth hovering */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 0.3s ease;
+        }
+
+        /* Hover Effect for visible squares */
+        .service-square.visible:hover {
+            background-color: #ff66ff; /* Paler Magenta */
         }
 
         /* Staggered Delays */
@@ -170,16 +175,8 @@
             transform: translateY(0);
         }
         
-        .service-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease; z-index: 1; }
-        
-        /* Pink overlay filter on hover */
-        .service-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--gowise-pink); opacity: 0; transition: opacity var(--transition-speed) ease; mix-blend-mode: multiply; z-index: 2; }
-        
-        .service-square:hover .service-bg { transform: scale(1.1); filter: grayscale(100%); }
-        .service-square:hover .service-overlay { opacity: 0.8; }
-        
         .service-content { position: relative; z-index: 3; color: #fff; padding: 20px; }
-        .service-content h3 { font-size: 18px; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.6); letter-spacing: 0.5px; }
+        .service-content h3 { font-size: 18px; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* Testimonial Carousel */
         .testimonial-section { background: #f4f4f4; padding: 60px 5%; text-align: center; height: 250px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
@@ -266,6 +263,7 @@
             .intro-section { height: auto; }
             .intro-title { font-size: 26px; padding: 15px 5%; }
             .intro-text-container { padding: 30px 5%; }
+            .intro-text { text-align: center; } /* Centers text on small mobile screens */
         }
     </style>
 </head>
@@ -282,7 +280,7 @@
         </a>
         <nav>
             <ul class="main-nav">
-                <li><a href="#" class="active">HOME</a></li>
+                <li><a href="index.html" class="active">HOME</a></li>
                 
                 <li>
                     <a href="printing.html">PRINTING SERVICES ▾</a>
@@ -348,33 +346,25 @@
 
         <section class="services-grid" aria-label="Our Services">
             
-            <a href="#" class="service-square">
-                <div class="service-bg" ;"></div>
-                <div class="service-overlay"></div>
+            <a href="printing.html" class="service-square">
                 <div class="service-content">
                     <h3>Litho Printing &<br>Digital Printing</h3>
                 </div>
             </a>
             
             <a href="#" class="service-square">
-                <div class="service-bg" ;"></div>
-                <div class="service-overlay"></div>
                 <div class="service-content">
                     <h3>Book Binding</h3>
                 </div>
             </a>
             
             <a href="#" class="service-square">
-                <div class="service-bg" ;"></div>
-                <div class="service-overlay"></div>
                 <div class="service-content">
                     <h3>Artwork &<br>Design</h3>
                 </div>
             </a>
             
             <a href="#" class="service-square">
-                <div class="service-bg" ;"></div>
-                <div class="service-overlay"></div>
                 <div class="service-content">
                     <h3>5 Colour<br>Digital Printing</h3>
                 </div>
@@ -472,7 +462,7 @@
         }, { threshold: 0.1 }); 
         arrowObserver.observe(arrow);
 
-        // 3B. Four Photo Grid Animation
+        // 3B. Four Box Grid Animation
         const gridContainer = document.querySelector('.services-grid');
         const serviceSquares = document.querySelectorAll('.service-square');
         
