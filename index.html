@@ -18,10 +18,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Base Reset & Exact Font Typography */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
+        /* Base Reset & Universal Font Enforcement */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            /* This guarantees every element uses this exact font stack AND the light weight */
             font-family: "Open Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; 
+            font-weight: 300; 
+        }
+        
+        body { 
             color: #333; 
             overflow-x: hidden; 
             background-color: #fcfcfc;
@@ -39,14 +46,14 @@
         }
 
         /* Top Bar */
-        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; font-weight: 400; }
+        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; }
 
         /* Main Header & Nav */
         header { background-color: var(--header-dark); color: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo img { max-height: 80px; width: auto; }
         
-        /* Navigation Menu - Updated to Light Font Weight (300) */
-        .main-nav { display: flex; gap: 20px; font-size: 13px; font-weight: 300; }
+        /* Navigation Menu */
+        .main-nav { display: flex; gap: 20px; font-size: 13px; }
         .main-nav li { position: relative; padding: 10px 0; }
         .main-nav a { padding: 5px 10px; transition: color 0.3s; text-transform: uppercase; }
         .main-nav a.active, .main-nav a:hover { color: var(--gowise-cyan); }
@@ -62,7 +69,7 @@
         .hero-carousel { 
             position: relative; 
             width: 100%; 
-            height: calc(100vh - 185px - 320px); 
+            height: calc(100vh - 185px - 340px); 
             min-height: 300px; 
             overflow: hidden; 
             background: #000; 
@@ -77,23 +84,61 @@
 
         /* Intro Text Section */
         .intro-section { 
-            height: 320px; 
-            padding: 0 5%; 
+            height: 340px; 
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center; 
             background-color: #ffffff; 
+            width: 100%;
         }
-        .intro-title { font-size: 32px; font-weight: 300; color: var(--gowise-magenta); margin-bottom: 25px; }
-        .intro-text { max-width: 1100px; margin: 0 auto; font-size: 18px; line-height: 1.8; color: #555; text-wrap: balance; }
+        
+        /* Full-width background wrapper for the title */
+        .intro-title-wrapper {
+            background-color: var(--gowise-magenta); 
+            width: 100%;
+        }
+
+        .intro-title { 
+            font-size: 38px; 
+            color: #ffffff; 
+            padding: 20px 5%;
+            margin: 0 auto;
+            text-align: left; 
+            width: 100%;
+            max-width: 1500px; /* Constrains title to match the grid width below */
+        }
+        
+        .intro-text-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 5%;
+            width: 100%;
+            max-width: 1500px; /* Constrains text box to match the grid width below */
+            margin: 0 auto;
+        }
+        
+        .intro-text { 
+            width: 100%;
+            font-size: 22px; 
+            line-height: 1.8; 
+            color: #555; 
+            text-align: left; 
+        }
         
         /* Desktop Line Breaks */
         .desktop-break { display: block; content: ""; }
 
         /* Four Square Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; width: 100%; }
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 30px; 
+            padding: 40px 5%; 
+            width: 100%; 
+            max-width: 1500px;
+            margin: 0 auto;
+        }
         
         /* Animation Hidden State */
         .service-square { 
@@ -106,6 +151,7 @@
             align-items: center; 
             justify-content: center; 
             text-align: center; 
+            border-radius: 4px; 
             
             opacity: 0;
             transform: translateY(60px);
@@ -133,13 +179,13 @@
         .service-square:hover .service-overlay { opacity: 0.8; }
         
         .service-content { position: relative; z-index: 3; color: #fff; padding: 20px; }
-        .service-content h3 { font-size: 18px; font-weight: 600; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.6); letter-spacing: 0.5px; }
+        .service-content h3 { font-size: 18px; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.6); letter-spacing: 0.5px; }
 
         /* Testimonial Carousel */
         .testimonial-section { background: #f4f4f4; padding: 60px 5%; text-align: center; height: 250px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
         .testimonial-slide { position: absolute; width: 90%; left: 5%; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
         .testimonial-slide.active { opacity: 1; pointer-events: auto; }
-        .testimonial-slide p { font-size: 24px; font-style: italic; color: #555; font-weight: 300; }
+        .testimonial-slide p { font-size: 24px; font-style: italic; color: #555; }
 
         /* Realigned Footer & Animated Map */
         footer { background: var(--header-dark); color: #fff; position: relative; overflow: hidden; padding: 60px 5%; }
@@ -191,7 +237,7 @@
 
         /* Responsive Media Queries */
         @media (max-width: 1024px) {
-            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 40px 5%; }
             header { flex-direction: column; gap: 15px; padding: 20px 5%; }
             .main-nav { flex-wrap: wrap; justify-content: center; }
             .dropdown { position: static; box-shadow: none; display: none; }
@@ -202,19 +248,24 @@
             .footer-text-columns { flex-direction: column; gap: 30px; align-items: center; }
             .map-container { width: 100%; flex: 1 1 100%; }
             
+            /* Remove delays on tablet/mobile so they don't load awkwardly */
             .service-square:nth-child(n) { transition-delay: 0s; }
         }
         
         @media (max-width: 768px) {
             .top-bar { flex-direction: column; text-align: center; gap: 10px; }
             
+            /* Disable fixed breaks on mobile so text can wrap normally */
             .desktop-break { display: none; }
 
             .services-grid { grid-template-columns: 1fr; }
             .service-square { aspect-ratio: 16/9; } 
             
+            /* Give fixed heights on mobile rather than viewport math */
             .hero-carousel { height: 40vh; }
-            .intro-section { height: auto; padding: 40px 5%; }
+            .intro-section { height: auto; }
+            .intro-title { font-size: 26px; padding: 15px 5%; }
+            .intro-text-container { padding: 30px 5%; }
         }
     </style>
 </head>
@@ -283,12 +334,16 @@
         </section>
 
         <section class="intro-section" aria-label="About Gowise Print">
-            <h2 class="intro-title">Gowise Print. Expert Printers in Norwich</h2>
-            <p class="intro-text">
-                A long-standing, family business located to the east of Norwich. Decades of experience in lithographic<br class="desktop-break">
-                print, including both Four Colour Process and Spot Colour Pantone printing, together with new FIVE<br class="desktop-break">
-                COLOUR digital printing, variable data printing and in house book binding.
-            </p>
+            <div class="intro-title-wrapper">
+                <h2 class="intro-title">Gowise Print. Expert Printers in Norwich</h2>
+            </div>
+            <div class="intro-text-container">
+                <p class="intro-text">
+                    A long-standing, family business located to the east of Norwich. Decades of experience in lithographic<br class="desktop-break">
+                    print, including both Four Colour Process and Spot Colour Pantone printing, together with new FIVE<br class="desktop-break">
+                    COLOUR digital printing, variable data printing and in house book binding.
+                </p>
+            </div>
         </section>
 
         <section class="services-grid" aria-label="Our Services">
@@ -347,7 +402,7 @@
             
             <div class="footer-text-columns">
                 <div>
-                    <p style="font-size: 18px; margin-bottom: 15px; color: var(--gowise-magenta); font-weight: 600;">WHERE TO FIND US</p>
+                    <p style="font-size: 18px; margin-bottom: 15px; color: var(--gowise-magenta);">WHERE TO FIND US</p>
                     <p>4 Belmore Road<br>Thorpe St Andrew<br>Norwich<br>Norfolk<br>NR7 0PT</p>
                     <br>
                     <p>+44 (0)1603 431304</p>
@@ -355,7 +410,7 @@
                 </div>
                 
                 <div>
-                    <p style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">OPENING HOURS</p>
+                    <p style="font-size: 16px; margin-bottom: 15px;">OPENING HOURS</p>
                     <p>MONDAY: 08.30-17.00<br>TUESDAY: 08.30-17.00<br>WEDNESDAY: 08.30-17.00<br>THURSDAY: 08.30-17.00<br>FRIDAY: 08.30-17.00<br>SATURDAY: CLOSED<br>SUNDAY: CLOSED</p>
                 </div>
             </div>
