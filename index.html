@@ -33,19 +33,20 @@
         :root {
             --gowise-magenta: #ff00ff;
             --gowise-pink: #fd13f0;
-            --gowise-cyan: #009ee0; /* Active Menu Color */
+            --gowise-cyan: #009ee0; 
             --header-dark: #333333;
             --transition-speed: 0.4s;
         }
 
         /* Top Bar */
-        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; font-weight: 600; }
+        .top-bar { background-color: var(--gowise-magenta); color: #fff; display: flex; justify-content: space-between; padding: 8px 5%; font-size: 13px; font-weight: 400; }
 
         /* Main Header & Nav */
         header { background-color: var(--header-dark); color: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo img { max-height: 80px; width: auto; }
         
-        .main-nav { display: flex; gap: 20px; font-size: 13px; font-weight: 600; }
+        /* Navigation Menu - Updated to Light Font Weight (300) */
+        .main-nav { display: flex; gap: 20px; font-size: 13px; font-weight: 300; }
         .main-nav li { position: relative; padding: 10px 0; }
         .main-nav a { padding: 5px 10px; transition: color 0.3s; text-transform: uppercase; }
         .main-nav a.active, .main-nav a:hover { color: var(--gowise-cyan); }
@@ -58,7 +59,14 @@
         .dropdown a:hover { background-color: rgba(0, 0, 0, 0.15); color: #fff; }
 
         /* Hero Image Carousel */
-        .hero-carousel { position: relative; width: 100%; height: 45vh; min-height: 400px; overflow: hidden; background: #000; }
+        .hero-carousel { 
+            position: relative; 
+            width: 100%; 
+            height: calc(100vh - 185px - 320px); 
+            min-height: 300px; 
+            overflow: hidden; 
+            background: #000; 
+        }
         .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; z-index: 1; }
         .hero-slide.active { opacity: 1; z-index: 2; }
         .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
@@ -68,9 +76,18 @@
         .carousel-btn:hover { background: var(--gowise-magenta); }
 
         /* Intro Text Section */
-        .intro-section { padding: 60px 5%; text-align: center; background-color: #ffffff; }
-        .intro-title { font-size: 26px; font-weight: 300; color: var(--gowise-magenta); margin-bottom: 25px; }
-        .intro-text { max-width: 900px; margin: 0 auto; font-size: 14px; line-height: 1.8; color: #555; text-wrap: balance; }
+        .intro-section { 
+            height: 320px; 
+            padding: 0 5%; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center; 
+            background-color: #ffffff; 
+        }
+        .intro-title { font-size: 32px; font-weight: 300; color: var(--gowise-magenta); margin-bottom: 25px; }
+        .intro-text { max-width: 1100px; margin: 0 auto; font-size: 18px; line-height: 1.8; color: #555; text-wrap: balance; }
         
         /* Desktop Line Breaks */
         .desktop-break { display: block; content: ""; }
@@ -78,9 +95,7 @@
         /* Four Square Grid */
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; width: 100%; }
         
-        /* NEW ANIMATION STYLES 
-           Initial hidden state for the squares 
-        */
+        /* Animation Hidden State */
         .service-square { 
             position: relative; 
             aspect-ratio: 1/1; 
@@ -93,17 +108,17 @@
             text-align: center; 
             
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        /* Staggered delay for each child so they reveal one by one */
+        /* Staggered Delays */
         .service-square:nth-child(1) { transition-delay: 0s; }
         .service-square:nth-child(2) { transition-delay: 0.15s; }
         .service-square:nth-child(3) { transition-delay: 0.3s; }
         .service-square:nth-child(4) { transition-delay: 0.45s; }
 
-        /* The class Javascript will add when they scroll into view */
+        /* JavaScript Trigger Class */
         .service-square.visible {
             opacity: 1;
             transform: translateY(0);
@@ -187,19 +202,19 @@
             .footer-text-columns { flex-direction: column; gap: 30px; align-items: center; }
             .map-container { width: 100%; flex: 1 1 100%; }
             
-            /* Remove delays on tablet/mobile so they don't load awkwardly */
             .service-square:nth-child(n) { transition-delay: 0s; }
         }
         
         @media (max-width: 768px) {
             .top-bar { flex-direction: column; text-align: center; gap: 10px; }
             
-            /* Disable fixed breaks on mobile so text can wrap normally */
             .desktop-break { display: none; }
 
             .services-grid { grid-template-columns: 1fr; }
             .service-square { aspect-ratio: 16/9; } 
+            
             .hero-carousel { height: 40vh; }
+            .intro-section { height: auto; padding: 40px 5%; }
         }
     </style>
 </head>
@@ -270,9 +285,9 @@
         <section class="intro-section" aria-label="About Gowise Print">
             <h2 class="intro-title">Gowise Print. Expert Printers in Norwich</h2>
             <p class="intro-text">
-                A long-standing, family business located to the east of Norwich. Decades of experience in lithographic print,<br class="desktop-break">
-                including both Four Colour Process and Spot Colour Pantone printing, together with new FIVE COLOUR digital<br class="desktop-break">
-                printing, variable data printing and in house book binding.
+                A long-standing, family business located to the east of Norwich. Decades of experience in lithographic<br class="desktop-break">
+                print, including both Four Colour Process and Spot Colour Pantone printing, together with new FIVE<br class="desktop-break">
+                COLOUR digital printing, variable data printing and in house book binding.
             </p>
         </section>
 
@@ -403,21 +418,19 @@
         arrowObserver.observe(arrow);
 
         // 3B. Four Photo Grid Animation
+        const gridContainer = document.querySelector('.services-grid');
         const serviceSquares = document.querySelectorAll('.service-square');
+        
         const squareObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // When the grid comes into view, trigger the animation on all squares
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // We only want them to fade in once, so we unobserve after triggered
+                    serviceSquares.forEach(square => square.classList.add('visible'));
                     squareObserver.unobserve(entry.target); 
                 }
             });
-        }, { threshold: 0.1 }); // Triggers when the top 10% of the block enters the screen
+        }, { threshold: 0.2 }); 
         
-        serviceSquares.forEach(square => {
-            squareObserver.observe(square);
-        });
+        squareObserver.observe(gridContainer);
     </script>
 </body>
 </html>
